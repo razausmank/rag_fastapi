@@ -2,7 +2,8 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from src.rag.common.deps import get_db
-from .schemas import ItemRead
+from .schemas import ItemRead, ItemCreate
+from .service import create_item
 
 router = APIRouter(prefix="/items", tags=["users"])
 
@@ -12,3 +13,17 @@ def index(db: Session = Depends(get_db)):
         "name" : "my first item", 
         "description" : "description of my first item"
     }
+
+@router.post("/create", response_model = ItemRead)
+def create_item_route(data: ItemCreate, db: Session = Depends(get_db)):
+    return create_item(db,data)
+
+@router.get('/test') 
+def test(db: Session = Depends(get_db)):
+    try: 
+        items = db.query(Item).all()
+        return { 
+            "status" : "connected" 
+        }
+    except : 
+        return "error "

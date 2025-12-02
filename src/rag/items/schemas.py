@@ -6,3 +6,6 @@ class ItemBase(BaseModel):
 
 class ItemRead(ItemBase):
     pass 
+
+class ItemCreate(ItemBase): 
+    pass 
