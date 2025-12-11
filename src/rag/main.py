@@ -1,11 +1,13 @@
 from fastapi import FastAPI 
-from src.rag.items.router import router as items_router
-from src.rag.core.db import Base, engine
-from src.rag.items.models import Item 
+from rag.items.router import router as items_router
+from rag.retrieval.router import router as retrieval_router
+from rag.core.db import Base, engine
+from rag.items.models import Item 
 
 app = FastAPI()
 
 app.include_router(items_router)
+app.include_router(retrieval_router)
 
 Base.metadata.create_all(bind=engine)
 
@@ -21,5 +23,5 @@ def test():
 
 @app.get('/test/{blah}')
 
-def blah(blah): 
+def blah(blah: str) -> dict:
     return { "response": blah }
