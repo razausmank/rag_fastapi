@@ -1,11 +1,12 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from src.rag.common.deps import get_db
+from rag.common.deps import get_db
 from .schemas import ItemRead, ItemCreate
 from .service import create_item
+from .models import Item
 
-router = APIRouter(prefix="/items", tags=["users"])
+router = APIRouter(prefix="/items", tags=["items"])
 
 @router.get("/", response_model=ItemRead)
 def index(db: Session = Depends(get_db)): 
@@ -25,5 +26,5 @@ def test(db: Session = Depends(get_db)):
         return { 
             "status" : "connected" 
         }
-    except : 
-        return "error "
+    except Exception as e:
+        return {"status": "error", "message": str(e)}

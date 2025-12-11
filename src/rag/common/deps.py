@@ -1,4 +1,4 @@
-from src.rag.core.db import SessionLocal
+from rag.core.db import SessionLocal
 
 def get_db():
     db = SessionLocal()

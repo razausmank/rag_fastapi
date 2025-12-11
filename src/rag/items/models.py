@@ -1,6 +1,5 @@
 from sqlalchemy import Column, Integer, String
-from src.rag.core.db import engine 
-from src.rag.core.db import Base
+from rag.core.db import Base
 
 class Item(Base): 
 
